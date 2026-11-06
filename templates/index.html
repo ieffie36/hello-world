@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block inhoud %}
+<h1>Begrotingsstaten per hoofdstuk</h1>
+<p>Haal voor een begrotingsjaar de begrotingsstaten uit de <em>voorstellen van wet</em> op, voor alle
+begrotingshoofdstukken (ministeries, Hoge Colleges van Staat en begrotingsfondsen) én de
+begrotingsstaten van de baten-lastendiensten (agentschappen).</p>
+{% include "_formulier.html" %}
+<p class="hint">Het ophalen duurt enkele seconden per bron (er worden 20–30 wetsvoorstellen gedownload).
+Resultaten worden een uur in het geheugen bewaard. Beschikbaar vanaf {{ eerste_jaar }}.</p>
+<h2>API</h2>
+<ul class="api">
+  <li><code>/api/begroting?jaar=2025&amp;fase=OWB&amp;bron=beide</code> — JSON</li>
+  <li><code>/begroting.csv?jaar=2025&amp;fase=OWB&amp;bron=rijksfinancien</code> — CSV (één regel per bedrag)</li>
+</ul>
+{% endblock %}
