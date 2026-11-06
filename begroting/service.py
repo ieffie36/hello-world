@@ -7,10 +7,16 @@ import io
 import threading
 import time
 
+from . import database
+from .artikelen import extraheer_hoofdstuk
 from .bronnen import BRONNEN, SCRAPERS, Hoofdstuk, Resultaat, hoofdstuk_sorteersleutel
 from .tables import SOORT_AGENTSCHAPPEN
 
 CACHE_TTL = 60 * 60  # seconden
+
+# Verse scrape-resultaten worden automatisch in de SQL-database opgeslagen.
+OPSLAAN = True
+DB_PAD: str | None = None  # None = database.STANDAARD_PAD (omgevingsvariabele BEGROTING_DB)
 
 _cache: dict[tuple[str, int, str], tuple[float, Resultaat]] = {}
 _locks: dict[tuple[str, int, str], threading.Lock] = {}
@@ -30,6 +36,9 @@ def haal_op(bron: str, jaar: int, fase: str, vernieuw: bool = False) -> Resultaa
         res = SCRAPERS[bron]().scrape(jaar, fase)
         if not res.fout:
             _cache[sleutel] = (time.time(), res)
+            if OPSLAAN:
+                vul_namen_aan(res)
+                res.opslag = database.sla_op(res, DB_PAD)
         return res
 
 
@@ -74,6 +83,19 @@ def vergelijk(resultaten: list[Resultaat]) -> list[dict]:
     return rijen
 
 
+_NAMEN: dict[tuple[int, str, str], str] = {}
+
+
+def vul_namen_aan(res: Resultaat) -> None:
+    """Hoofdstuknamen die in een bron ontbreken aanvullen uit eerder opgehaalde bronnen."""
+    for h in res.hoofdstukken:
+        sleutel = (res.jaar, res.fase, h.code)
+        if h.naam:
+            _NAMEN[sleutel] = h.naam
+        else:
+            h.naam = _NAMEN.get(sleutel, "")
+
+
 CSV_KOLOMMEN = [
     "bron",
     "jaar",
@@ -82,26 +104,30 @@ CSV_KOLOMMEN = [
     "hoofdstuknaam",
     "onderdeel",
     "tabel_nr",
-    "tabel_soort",
-    "tabel_titel",
-    "rij",
-    "rijsoort",
-    "label_1",
-    "label_2",
+    "regelsoort",
+    "artikelnummer",
+    "artikelnaam",
+    "artikelsoort",
+    "stand",
+    "bedragsoort",
     "kolom",
     "bedrag",
+    "tabel_titel",
 ]
 
 
 def naar_csv(resultaten: list[Resultaat]) -> str:
-    """Lange ('tidy') CSV: één regel per bedrag, puntkomma-gescheiden voor Excel-NL."""
+    """CSV met één regel per bedrag van een artikel of baten-lastendienst (zonder (sub)totalen).
+
+    Puntkomma-gescheiden zodat Excel-NL het direct goed opent.
+    """
     buf = io.StringIO()
     w = csv.DictWriter(buf, fieldnames=CSV_KOLOMMEN, delimiter=";")
     w.writeheader()
     for res in resultaten:
         for h in res.hoofdstukken:
-            for nr, t in enumerate(h.tabellen, start=1):
-                for rec in t.records():
+            for nr, (t, ex) in enumerate(zip(h.tabellen, extraheer_hoofdstuk(h.tabellen)), start=1):
+                for r in ex.regels:
                     w.writerow(
                         {
                             "bron": BRONNEN[res.bron],
@@ -111,9 +137,15 @@ def naar_csv(resultaten: list[Resultaat]) -> str:
                             "hoofdstuknaam": h.naam,
                             "onderdeel": t.onderdeel or h.code,
                             "tabel_nr": nr,
-                            "tabel_soort": t.soort,
+                            "regelsoort": r.regelsoort,
+                            "artikelnummer": r.artikelnummer,
+                            "artikelnaam": r.artikelnaam,
+                            "artikelsoort": r.artikelsoort,
+                            "stand": r.stand,
+                            "bedragsoort": r.bedragsoort,
+                            "kolom": r.kolom,
+                            "bedrag": r.bedrag,
                             "tabel_titel": t.titel,
-                            **rec,
                         }
                     )
     return buf.getvalue()

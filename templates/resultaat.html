@@ -8,11 +8,17 @@
 <p class="downloads">
   Download: <a href="{{ url_for('begroting_csv') }}?{{ qs }}">CSV</a> ·
   <a href="{{ url_for('api_begroting') }}?{{ qs }}">JSON</a> ·
+  <a href="{{ url_for('begroting_sql') }}?{{ qs }}">SQL</a> ·
   <a href="{{ url_for('begroting') }}?{{ qs }}&vernieuw=1">opnieuw ophalen</a>
 </p>
 
 {% for res in resultaten if res.fout %}
   <p class="fout"><strong>{{ bronnen[res.bron] }}:</strong> {{ res.fout }}</p>
+{% endfor %}
+{% for res in resultaten if res.opslag %}
+  <p class="hint">{{ bronnen[res.bron] }}: {{ res.opslag.regels }} artikelregels (zonder totalen) opgeslagen in de
+    <a href="{{ url_for('database_overzicht') }}">database</a>{% if res.opslag.afwijkingen %};
+    <span class="fout">{{ res.opslag.afwijkingen|length }} hoofdstuk(ken) waar de som van de artikelen afwijkt van het totaal in de bron</span>{% endif %}.</p>
 {% endfor %}
 
 <h2>Overzicht</h2>
@@ -36,7 +42,8 @@
         <td>
           {% if not h %}<span class="badge grijs">ontbreekt</span>
           {% elif h.fout %}<a class="badge rood" href="{{ h.url }}" title="{{ h.fout }}">fout</a>
-          {% else %}<a class="badge groen" href="{{ h.url }}">{{ h.tabellen|length }} tabel{{ 'len' if h.tabellen|length != 1 }}</a>{% endif %}
+          {% else %}{% set c = controle(h) %}<a class="badge {{ 'groen' if c.ok else 'rood' }}" href="{{ h.url }}"
+              title="{{ c.toelichting or 'som artikelen = totaal' }}">{{ c.regels }} regels{{ '' if c.ok else ' ⚠' }}</a>{% endif %}
         </td>
       {% endfor %}
       {% set eerste = (rij.per_bron.values()|selectattr('tabellen')|list|first) %}

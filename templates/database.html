@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block titel %}Database{% endblock %}
+{% block inhoud %}
+<h1>SQL-database</h1>
+<p class="hint">SQLite-bestand: <code>{{ pad }}</code> · <a href="{{ url_for('database_download') }}">download</a></p>
+<p>Tabel <code>begrotingsregel</code> bevat één rij per bedrag van een artikel of baten-lastendienst,
+zonder totalen en subtotalen. View <code>artikel_breed</code> zet verplichtingen, uitgaven en ontvangsten
+(en baten, lasten, saldo, kapitaal) naast elkaar.</p>
+
+<h2>Opgeslagen ophalingen</h2>
+{% if not ophalingen %}<p>Nog niets opgeslagen. Haal een begroting op via het <a href="{{ url_for('index') }}">formulier</a>.</p>{% else %}
+<div class="scroll">
+<table>
+  <thead><tr><th>Jaar</th><th>Fase</th><th>Bron</th><th class="r">Hoofdstukken</th><th class="r">Regels</th>
+    <th class="r">Controle-afwijkingen</th><th class="r">Niet op te halen</th><th>Opgehaald</th><th></th></tr></thead>
+  <tbody>
+  {% for o in ophalingen %}
+    <tr>
+      <td>{{ o.jaar }}</td><td>{{ o.fase }}</td><td>{{ o.bron }}</td>
+      <td class="r">{{ o.hoofdstukken }}</td><td class="r">{{ o.regels }}</td>
+      <td class="r">{% if o.afwijkingen %}<span class="badge rood">{{ o.afwijkingen }}</span>{% else %}0{% endif %}</td>
+      <td class="r">{{ o.fouten or 0 }}</td><td>{{ o.opgehaald_op }}</td>
+      <td><a href="{{ url_for('begroting_sql') }}?jaar={{ o.jaar }}&fase={{ o.fase }}&bron={{ broncode.get(o.bron, o.bron) }}">SQL</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+{% if afwijkingen %}
+<h2>Controle-afwijkingen</h2>
+<p class="hint">Hier wijkt de som van de artikelen af van de totaalregel in de bron. Meestal is dat een fout in de
+gepubliceerde tabel zelf; de artikelen staan wel in de database.</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>Jaar</th><th>Fase</th><th>Bron</th><th>Hfd.</th><th>Toelichting</th></tr></thead>
+  <tbody>
+  {% for a in afwijkingen %}
+    <tr><td>{{ a.jaar }}</td><td>{{ a.fase }}</td><td>{{ a.bron }}</td>
+      <td><a href="{{ a.url }}">{{ a.hoofdstuk }}</a></td><td>{{ a.controle }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+{% endblock %}
