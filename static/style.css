@@ -47,3 +47,4 @@ details.hoofdstuk .code { display: inline-block; min-width: 3.5em; color: var(--
 section.bron h3 { font-size: 1rem; margin: 12px 0 0; }
 section.bron h3 .extern { font-weight: 400; font-size: .85rem; }
 .api code { word-break: break-all; }
+header .nav { color: #fff; margin-left: auto; font-size: .9rem; }

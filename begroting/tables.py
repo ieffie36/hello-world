@@ -24,7 +24,7 @@ SOORT_OVERIG = "overig"
 
 # Kolomkoppen die een omschrijvende kolom aanduiden (geen bedragen).
 _LABEL_KOP_RE = re.compile(
-    r"^(art(\.|ikel)?(nummer|nr\.?)?|omschrijving|naam|.*agentschap.*|.*dienst.*)$",
+    r"^(art(\.|ikel)?\s*(nummer|nr\.?|no\.?)?|omschrijving|naam|.*agentschap.*|.*dienst.*)$",
     re.IGNORECASE,
 )
 _ONDERDEEL_RE = re.compile(r"\(([IVX]+[A-C]?|H?[IVX]+|[A-M])\)")
@@ -42,6 +42,13 @@ def normaliseer_tekst(tekst: str | None) -> str:
 def parse_bedrag(tekst: str | None) -> float | int | None:
     """Zet een Nederlands opgemaakt bedrag (``1.234.567`` / ``-12,5``) om naar een getal."""
     t = normaliseer_tekst(tekst)
+    t = re.sub(r"(?<=\d)\s*(\*+|[¹²³⁴⁵⁶⁷⁸⁹])$", "", t)  # voetnoottekens: "6264 *", "1.234¹"
+    if (len(t) == 1 and t in _MIN) or t.lower() == "nihil":  # "–" of "nihil" betekent 0
+        return 0
+    # "(7.107)" is een negatief bedrag; "(1)", "(2)" zijn kolomnummers in de kop.
+    m = re.fullmatch(r"\(\s*(\d{1,3}(?:\.\d{3})+|\d{3,})\s*\)", t)
+    if m:
+        t = "-" + m.group(1)
     if not t or not _GETAL_RE.match(t):
         return None
     negatief = t[0] in _MIN
@@ -52,6 +59,8 @@ def parse_bedrag(tekst: str | None) -> float | int | None:
 
 def classificeer(titel: str) -> str:
     t = titel.lower()
+    # "(incl. agentschappen)" bij een departementale staat maakt het geen agentschapsstaat.
+    t = re.sub(r"\(?\s*incl(\.|usief)\s+(de\s+)?(agentschappen|baten-?\s*lastendiensten)\s*\)?", "", t)
     if "agentschap" in t or "baten-lasten" in t or "baten–lasten" in t:
         return SOORT_AGENTSCHAPPEN
     if re.search(r"begrotings?sta(at|ten)", t):
@@ -75,6 +84,7 @@ class Tabel:
     onderdeel: str = ""  # hoofdstukcode uit de titel, bijv. "IIIB" of "H"
 
     def bepaal_metadata(self) -> None:
+        self._verwijder_titel_uit_koppen()
         self._promoveer_kopregels()
         self.soort = classificeer(self.titel)
         m = _ONDERDEEL_RE.search(self.titel)
@@ -82,6 +92,18 @@ class Tabel:
         self.label_kolommen = self._label_kolommen()
         for rij in self.rijen:
             rij.soort = self._rijsoort(rij)
+
+    def _verwijder_titel_uit_koppen(self) -> None:
+        """Soms staat de tabeltitel nog eens als bovenste kopregel; die hoort niet in de kolomnaam."""
+        titel = re.sub(r"^tabel\s+\d+\s*", "", self.titel.lower()).strip()
+        if len(titel) < 20:
+            return
+        for i, kop in enumerate(self.kolommen):
+            delen = [d for d in kop.split(" – ") if not (len(d) >= 20 and d.lower().strip() in self.titel.lower())]
+            delen = [d for d in delen if not d.lower().startswith(titel[:40])]
+            # Een (andere) tabeltitel als kopregel: lang en met "begrotingsstaat" of "(bedragen x".
+            delen = [d for d in delen if not (len(d) > 40 and re.search(r"begrotings?sta(at|ten)|bedragen\s*(x|in)\b", d, re.I))]
+            self.kolommen[i] = " – ".join(delen) or f"kolom {i + 1}"
 
     def _promoveer_kopregels(self) -> None:
         """Sommige tabellen hebben (een deel van) de kolomkoppen in de body staan.
@@ -120,6 +142,9 @@ class Tabel:
             waarden = [r.cellen[i] for r in self.rijen if i < len(r.cellen) and r.cellen[i]]
             if waarden and sum(parse_bedrag(w) is None for w in waarden) > len(waarden) / 2:
                 labels.append(i)
+        if labels:
+            # Een naamloze kolom vóór de omschrijving bevat de artikelnummers ("01", "1.").
+            labels = [i for i in range(min(labels)) if self.kolommen[i].startswith("kolom ")] + labels
         return labels or [0]
 
     def _rijsoort(self, rij: Rij) -> str:
@@ -218,6 +243,14 @@ def _vul_raster(rijen: list[list[tuple[str, int, int]]]) -> list[list[str]]:
     return [[c or "" for c in r] + [""] * (breedte - len(r)) for r in raster]
 
 
+def _verplaats_datarijen(kop: list[list[str]], body: list[list[str]]) -> tuple[list[list[str]], list[list[str]]]:
+    """Datarijen (met bedragen) die in de tabelkop staan horen in de body."""
+    kop = list(kop)
+    while kop and sum(parse_bedrag(c) is not None for c in kop[-1]) >= 2:
+        body = [kop.pop()] + body
+    return kop, body
+
+
 # --------------------------------------------------------------------------- HTML
 
 
@@ -229,6 +262,9 @@ def _span(cel: Tag, attr: str) -> int:
 
 
 def parse_html_tabel(tabel: Tag) -> Tabel:
+    # Voetnootverwijzingen ("Rijksinspectie Digitale Infrastructuur¹") horen niet bij de tekst.
+    for noot in tabel.select("a.nootnum, sup.nootnum, a[class*=supernote]"):
+        noot.decompose()
     caption = tabel.find("caption")
     titel = normaliseer_tekst(caption.get_text(" ") if caption else tabel.get("summary", ""))
 
@@ -247,8 +283,7 @@ def parse_html_tabel(tabel: Tag) -> Tabel:
     tbody_rijen: list[list[tuple[str, int, int]]] = []
     for tbody in tabel.find_all("tbody", recursive=False) or [tabel]:
         tbody_rijen += rijen_van(tbody)
-    kop = _vul_raster(rijen_van(thead))
-    body = _vul_raster(tbody_rijen)
+    kop, body = _verplaats_datarijen(_vul_raster(rijen_van(thead)), _vul_raster(tbody_rijen))
     breedte = max([len(r) for r in kop + body] or [0])
     t = Tabel(titel=titel, kolommen=_combineer_koppen(kop, breedte), rijen=[Rij(r) for r in body])
     t.bepaal_metadata()
@@ -265,7 +300,23 @@ def parse_html(html: str) -> list[Tabel]:
 
 
 def _xml_tekst(e: ET.Element) -> str:
-    return normaliseer_tekst(" ".join(e.itertext()))
+    """Tekst van een element, zonder voetnoten (``<noot>``)."""
+    delen: list[str] = []
+
+    def loop(x: ET.Element) -> None:
+        if x.tag == "noot":
+            if x.tail:
+                delen.append(x.tail)
+            return
+        if x.text:
+            delen.append(x.text)
+        for kind in x:
+            loop(kind)
+        if x is not e and x.tail:
+            delen.append(x.tail)
+
+    loop(e)
+    return normaliseer_tekst(" ".join(delen))
 
 
 def _cals_rijen(rows: list[ET.Element], kolnamen: dict[str, int]) -> list[list[str]]:
@@ -313,6 +364,7 @@ def parse_xml_tabel(tabel: ET.Element) -> Tabel:
         tbody = tgroup.find("tbody")
         kop = _cals_rijen(thead.findall("row") if thead is not None else [], kolnamen)
         body = _cals_rijen(tbody.findall("row") if tbody is not None else [], kolnamen)
+        kop, body = _verplaats_datarijen(kop, body)
         if not kolommen:
             kolommen = _combineer_koppen(kop, aantal)
         rijen += [Rij(r) for r in body]

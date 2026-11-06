@@ -46,15 +46,51 @@ Open daarna <http://localhost:5000>, kies een jaar, een begrotingsmoment en een 
 * **Webinterface** (`/begroting?jaar=2025&fase=OWB&bron=beide`): overzicht van alle hoofdstukken met
   het aantal baten-lastendiensten, en per hoofdstuk de volledige tabellen. Met bron `beide` worden de
   totaalregels van beide bronnen vergeleken (`gelijk` / `verschil` / `onvolledig`).
-* **CSV** (`/begroting.csv?jaar=2025&fase=OWB&bron=rijksfinancien`): lange vorm, één regel per bedrag,
-  puntkomma-gescheiden (opent direct in Excel-NL). Kolommen: `bron, jaar, fase, hoofdstuk, hoofdstuknaam,
-  onderdeel, tabel_nr, tabel_soort, tabel_titel, rij, rijsoort, label_1, label_2, kolom, bedrag`.
+* **CSV** (`/begroting.csv?jaar=2025&fase=OWB&bron=rijksfinancien`): dezelfde artikelregels als de
+  SQL-tabel (zonder totalen), puntkomma-gescheiden (opent direct in Excel-NL).
   Bedragen staan zoals in de wet (meestal × € 1.000, zie `tabel_titel`).
 * **JSON** (`/api/begroting?jaar=2025&fase=OWB&bron=beide`): alle tabellen met kolomkoppen, rijen en
   totalen, plus de vergelijking.
 
 Parameters: `jaar` (verplicht), `fase` (standaard `OWB`), `bron` (`rijksfinancien`,
 `officielebekendmakingen` of `beide`; standaard `beide`) en `vernieuw=1` om de cache (1 uur) te omzeilen.
+
+## SQL-database
+
+Elke verse scrape wordt automatisch opgeslagen in een SQLite-database (`begroting.db` in de
+projectmap; ander pad via de omgevingsvariabele `BEGROTING_DB`). Opnieuw ophalen van dezelfde
+bron/jaar/fase vervangt de vorige gegevens. In bulk vullen:
+
+```bash
+flask --app app opslaan --jaar 2013 --tot 2027 --fase alle --bron beide
+```
+
+| Tabel / view | Inhoud |
+| --- | --- |
+| `begrotingsregel` | Eén rij per bedrag van een **artikel** of **baten-lastendienst**: `bron, jaar, fase, hoofdstuk, hoofdstuknaam, onderdeel, tabel_nr, tabel_titel, regelsoort, artikelnummer, artikelnaam, artikelsoort (beleidsartikel/niet-beleidsartikel), stand, bedragsoort, kolom, bedrag, eenheid, rij, url` |
+| `artikel_breed` (view) | Per artikel en stand de bedragsoorten naast elkaar: `verplichtingen, uitgaven, ontvangsten, kapitaaluitgaven, kapitaalontvangsten, saldo, baten, lasten` |
+| `hoofdstuk` | Per ophaling en hoofdstuk: naam, bron-URL, fout, aantal regels en de controle |
+| `ophaling` | Wanneer welke bron/jaar/fase is opgehaald |
+
+**Zonder totalen en subtotalen.** Weggelaten worden: `Totaal`, `Subtotaal`/`Sub-totaal`, sectiekoppen
+met bedragen (`Beleidsartikelen`, `Niet-beleidsartikelen`, dat zijn subtotalen) en de eindsaldo-regels
+van begrotingsfondsen. Artikelnummers worden genormaliseerd (`01` en `1.` worden `1`).
+
+**Controle.** Per tabel en kolom wordt de som van de opgeslagen artikelen vergeleken met de
+(sub)totaalregel in de bron (`hoofdstuk.controle_ok`). Afwijkingen staan op `/database`; in de
+gevallen die ik heb nagelopen zat de fout in de gepubliceerde tabel zelf.
+
+Voorbeeld:
+
+```sql
+SELECT hoofdstuk, artikelnummer, artikelnaam, verplichtingen, uitgaven, ontvangsten
+FROM artikel_breed
+WHERE jaar = 2025 AND fase = 'OWB' AND bron = 'rijksfinancien.nl' AND regelsoort = 'artikel'
+ORDER BY hoofdstuk, CAST(artikelnummer AS INTEGER);
+```
+
+Downloads: `/begroting.sql?jaar=2025&fase=OWB` (SQL-script met `CREATE TABLE` + `INSERT`, te importeren in
+elke SQL-database) en `/database.sqlite` (het volledige SQLite-bestand).
 
 ## Opmerkingen
 

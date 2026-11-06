@@ -42,7 +42,7 @@ class NepHttp:
 
 @pytest.mark.parametrize(
     "tekst, verwacht",
-    [("4.560.128", 4560128), ("13 478 481", 13478481), ("‒ 288 770", -288770), ("1 2", None), ("‒ 3.100", -3100), ("-1.234", -1234), ("0", 0), ("12,5", 12.5), ("", None), ("Totaal", None)],
+    [("4.560.128", 4560128), ("13 478 481", 13478481), ("6264 *", 6264), ("(7.107)", -7107), ("(1)", None), ("–", 0), ("nihil", 0), ("‒ 288 770", -288770), ("1 2", None), ("‒ 3.100", -3100), ("-1.234", -1234), ("0", 0), ("12,5", 12.5), ("", None), ("Totaal", None)],
 )
 def test_parse_bedrag(tekst, verwacht):
     assert parse_bedrag(tekst) == verwacht
@@ -211,10 +211,16 @@ def test_app_routes(client):
     csv = client.get("/begroting.csv?jaar=2027&bron=rijksfinancien").get_data(as_text=True)
     regels = csv.strip().splitlines()
     assert regels[0].lstrip("﻿").startswith("bron;jaar;fase;hoofdstuk")
-    assert any("Logius" in r and "Baten" in r for r in regels)
+    assert any("Logius" in r and ";baten;" in r for r in regels)
+    assert not any(";Totaal;" in r for r in regels)
 
     data = client.get("/api/begroting?jaar=2027&bron=rijksfinancien").get_json()
     assert data["bronnen"][0]["hoofdstukken"][0]["code"] == "VII"
+
+    sql = client.get("/begroting.sql?jaar=2027&bron=rijksfinancien").get_data(as_text=True)
+    assert "INSERT INTO begrotingsregel" in sql and "'Logius'" in sql and "'Totaal'" not in sql
+    db = client.get("/database").get_data(as_text=True)
+    assert "2027" in db and "Opgeslagen ophalingen" in db
 
 
 def test_app_validatie(client):

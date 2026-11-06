@@ -106,10 +106,12 @@ class Resultaat:
     fase: str
     hoofdstukken: list[Hoofdstuk] = field(default_factory=list)
     fout: str | None = None
+    opslag: dict | None = None  # samenvatting van de laatste opslag in de database
 
     def to_dict(self) -> dict:
         return {
             "bron": self.bron,
+            "opslag": self.opslag,
             "jaar": self.jaar,
             "fase": self.fase,
             "fase_naam": FASEN[self.fase]["naam"],

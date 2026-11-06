@@ -10,6 +10,7 @@
   <header>
     <a class="logo" href="{{ url_for('index') }}">Begrotingsstaten-scraper</a>
     <span class="sub">Begrotingswetten van rijksfinancien.nl &amp; officielebekendmakingen.nl</span>
+    <a class="nav" href="{{ url_for('database_overzicht') }}">Database</a>
   </header>
   <main>
     {% block inhoud %}{% endblock %}
