@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block titel %}Begrotingsstaten {{ jaar }} – {{ fase }}{% endblock %}
+{% block inhoud %}
+{% include "_formulier.html" %}
+
+{% set qs = 'jaar=' ~ jaar ~ '&fase=' ~ fase ~ '&bron=' ~ gekozen_bron %}
+<h1>Begrotingsstaten {{ jaar }} <small>{{ fasen[fase].naam }}</small></h1>
+<p class="downloads">
+  Download: <a href="{{ url_for('begroting_csv') }}?{{ qs }}">CSV</a> ·
+  <a href="{{ url_for('api_begroting') }}?{{ qs }}">JSON</a> ·
+  <a href="{{ url_for('begroting') }}?{{ qs }}&vernieuw=1">opnieuw ophalen</a>
+</p>
+
+{% for res in resultaten if res.fout %}
+  <p class="fout"><strong>{{ bronnen[res.bron] }}:</strong> {{ res.fout }}</p>
+{% endfor %}
+
+<h2>Overzicht</h2>
+<div class="scroll">
+<table class="overzicht">
+  <thead>
+    <tr>
+      <th>Hfd.</th><th>Naam</th>
+      {% for res in resultaten %}<th>{{ bronnen[res.bron] }}</th>{% endfor %}
+      <th class="r">Baten-lasten&shy;diensten</th>
+      {% if resultaten|length > 1 %}<th>Vergelijking totalen</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for rij in overzicht %}
+    <tr>
+      <td><a href="#h-{{ rij.code }}">{{ rij.code }}</a></td>
+      <td>{{ rij.naam }}</td>
+      {% for res in resultaten %}
+        {% set h = rij.per_bron.get(res.bron) %}
+        <td>
+          {% if not h %}<span class="badge grijs">ontbreekt</span>
+          {% elif h.fout %}<a class="badge rood" href="{{ h.url }}" title="{{ h.fout }}">fout</a>
+          {% else %}<a class="badge groen" href="{{ h.url }}">{{ h.tabellen|length }} tabel{{ 'len' if h.tabellen|length != 1 }}</a>{% endif %}
+        </td>
+      {% endfor %}
+      {% set eerste = (rij.per_bron.values()|selectattr('tabellen')|list|first) %}
+      <td class="r">{{ aantal_agentschappen(eerste) if eerste else '' }}</td>
+      {% if resultaten|length > 1 %}
+        <td>
+          {% if rij.status == 'gelijk' %}<span class="badge groen">gelijk</span>
+          {% elif rij.status == 'verschil' %}<span class="badge rood">verschil</span>
+          {% else %}<span class="badge grijs">{{ rij.status }}</span>{% endif %}
+        </td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<h2>Begrotingsstaten per hoofdstuk</h2>
+{% for rij in overzicht %}
+  <details id="h-{{ rij.code }}" class="hoofdstuk">
+    <summary><span class="code">{{ rij.code }}</span> {{ rij.naam }}</summary>
+    {% for res in resultaten %}
+      {% set h = rij.per_bron.get(res.bron) %}
+      {% if h %}
+      <section class="bron">
+        <h3>{{ bronnen[res.bron] }} <a class="extern" href="{{ h.url }}">bron ↗</a></h3>
+        {% if h.fout %}<p class="fout">{{ h.fout }}</p>{% endif %}
+        {% for t in h.tabellen %}
+          <div class="scroll">
+          <table class="staat soort-{{ t.soort }}">
+            <caption>
+              <span class="badge {{ 'blauw' if t.soort == 'agentschappen' else 'grijs' }}">
+                {{ 'baten-lastendiensten' if t.soort == 'agentschappen' else t.soort }}</span>
+              {{ t.titel }}
+            </caption>
+            <thead><tr>{% for k in t.kolommen %}<th>{{ k }}</th>{% endfor %}</tr></thead>
+            <tbody>
+            {% for r in t.rijen if r.soort != 'kop' or r.cellen|select|list %}
+              <tr class="{{ r.soort }}">
+                {% for c in r.cellen %}<td class="{{ 'r' if is_bedrag(c) }}">{{ c }}</td>{% endfor %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          </div>
+        {% endfor %}
+      </section>
+      {% endif %}
+    {% endfor %}
+  </details>
+{% endfor %}
+{% endblock %}

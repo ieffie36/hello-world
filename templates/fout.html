@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block inhoud %}
+<h1>Ongeldige invoer</h1>
+<p class="fout">{{ melding }}</p>
+<p><a href="{{ url_for('index') }}">Terug naar het formulier</a></p>
+{% endblock %}

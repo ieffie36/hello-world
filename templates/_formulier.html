@@ -1,0 +1,22 @@
+<form class="zoek" action="{{ url_for('begroting') }}" method="get">
+  <label>Begrotingsjaar
+    <input type="number" name="jaar" min="{{ eerste_jaar }}" max="{{ laatste_jaar }}"
+           value="{{ jaar or standaard_jaar }}" required>
+  </label>
+  <label>Begrotingsmoment
+    <select name="fase">
+      {% for code, f in fasen.items() %}
+        <option value="{{ code }}" {% if code == fase %}selected{% endif %}>{{ f.naam }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Bron
+    <select name="bron">
+      <option value="beide" {% if gekozen_bron in (None, 'beide') %}selected{% endif %}>Beide (met vergelijking)</option>
+      {% for code, naam in bronnen.items() %}
+        <option value="{{ code }}" {% if code == gekozen_bron %}selected{% endif %}>{{ naam }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit">Ophalen</button>
+</form>

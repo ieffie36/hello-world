@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<officiele-publicatie xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://technische-documentatie.oep.overheid.nl/schema/op-xsd-2012-2">
+  <metadata>
+    <meta name="OVERHEIDop.externMetadataRecord" scheme="" content="https://zoek.officielebekendmakingen.nl/kst-36600-VII-1/metadata.xml" />
+  </metadata>
+  <kamerstuk>
+    <kamerstukkop>
+      <tekstregel inhoud="vergaderjaar">Vergaderjaar 2024–2025</tekstregel>
+      <tekstregel inhoud="kameraanduiding">Tweede Kamer der Staten-Generaal</tekstregel>
+      <tekstregel inhoud="kamernummer">2</tekstregel>
+      <tekstregel inhoud="documenttype">Kamerstukken</tekstregel>
+    </kamerstukkop>
+    <dossier>
+      <dossiernummer>
+        <dossiernr>36 600</dossiernr>
+        <begrotingshoofdstuk>VII</begrotingshoofdstuk>
+      </dossiernummer>
+      <titel>Vaststelling van de begrotingsstaten van het ministerie van Binnenlandse Zaken en Koninkrijksrelaties (VII) voor het jaar 2025</titel>
+    </dossier>
+    <stuk>
+      <stuknr>Nr. <ondernummer kamer="2">1</ondernummer></stuknr>
+      <titel>VOORSTEL VAN WET</titel>
+      <datumtekst>Ontvangen <datum isodatum="2024-09-17">17 september 2024</datum></datumtekst>
+      <voorstel-wet>
+        <aanhef>
+          <wie>Wij Willem-Alexander, bij de gratie Gods, Koning der Nederlanden, Prins van Oranje-Nassau, enz. enz. enz.</wie>
+          <considerans>
+            <considerans.al>Allen, die deze zullen zien of horen lezen, saluut! doen te weten:</considerans.al>
+            <considerans.al>Alzo Wij in overweging genomen hebben, dat ingevolge artikel 105 van de Grondwet de begroting van de uitgaven en de ontvangsten van het Rijk bij de wet moet worden vastgesteld en dat artikel 2.1 van de Comptabiliteitswet 2016 bepaalt welke begrotingen tot de rijksbegroting behoren;</considerans.al>
+            <considerans.al>Zo is het, dat Wij, de Afdeling advisering van de Raad van State gehoord, en met gemeen overleg der Staten-Generaal, hebben goedgevonden en verstaan, gelijk Wij goedvinden en verstaan bij deze:</considerans.al>
+          </considerans>
+        </aanhef>
+        <wettekst>
+          <artikel>
+            <kop>
+              <label>Artikel</label>
+              <nr>1</nr>
+            </kop>
+            <al>De bij deze wet behorende departementale begrotingsstaat voor het jaar 2025 wordt vastgesteld.</al>
+          </artikel>
+          <artikel>
+            <kop>
+              <label>Artikel</label>
+              <nr>2</nr>
+            </kop>
+            <al>De bij deze wet behorende begrotingsstaat inzake de agentschappen voor het jaar 2025 wordt vastgesteld.</al>
+          </artikel>
+          <artikel>
+            <kop>
+              <label>Artikel</label>
+              <nr>3</nr>
+            </kop>
+            <al>De vaststelling van de begrotingsstaten geschiedt in duizenden euro’s.</al>
+          </artikel>
+          <artikel>
+            <kop>
+              <label>Artikel</label>
+              <nr>4</nr>
+            </kop>
+            <al>Deze wet treedt in werking met ingang van 1 januari van het onderhavige begrotingsjaar. Indien het Staatsblad waarin deze wet wordt geplaatst, wordt uitgegeven op of na deze datum van 1 januari, treedt zij in werking met ingang van de dag na de datum van uitgifte van dat Staatsblad en werkt zij terug tot en met 1 januari.</al>
+          </artikel>
+        </wettekst>
+        <voorstel-sluiting>
+          <slotformulering>
+            <al>Lasten en bevelen dat deze in het Staatsblad zal worden geplaatst en dat alle ministeries, autoriteiten, colleges en ambtenaren die zulks aangaat, aan de nauwkeurige uitvoering de hand zullen houden.</al>
+          </slotformulering>
+          <label>Gegeven</label>
+          <ondertekening>
+            <functie>De minister van Binnenlandse Zaken en Koninkrijksrelaties</functie>
+          </ondertekening>
+        </voorstel-sluiting>
+      </voorstel-wet>
+      <algemeen>
+        <vrije-tekst>
+          <tekst>
+            <tussenkop kopopmaak="halfvet">Begrotingsstaten</tussenkop>
+            <table rowsep="0" colsep="0" tabstyle="kio2" frame="topbot" pgwide="2" pdf-table-positioning="volledig" tablebreak="no">
+              <title>Vastgestelde departementale begrotingsstaat van het ministerie van Binnenlandse Zaken en Koninkrijksrelaties (VII) voor het jaar 2025 (bedragen x € 1.000)</title>
+              <tgroup tgroupstyle="kio2" cols="5">
+                <colspec colnum="1" colname="col1" colwidth="3*" />
+                <colspec colnum="2" colname="col2" colwidth="52*" />
+                <colspec colnum="3" colname="col3" colwidth="15*" />
+                <colspec colnum="4" colname="col4" colwidth="15*" />
+                <colspec colnum="5" colname="col5" colwidth="15*" />
+                <thead>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>Art.</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Omschrijving</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" valign="top" align="center" namest="col3" nameend="col5">
+                      <al>Vastgestelde begroting</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>Verplichtingen</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>Uitgaven</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>Ontvangsten</al>
+                    </entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>
+                        <nadruk type="vet">Totaal</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>
+                        <nadruk type="vet">4.860.106</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>
+                        <nadruk type="vet">5.083.939</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>
+                        <nadruk type="vet">1.771.618</nadruk>
+                      </al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" />
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>
+                        <nadruk type="vet">Beleidsartikelen</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" />
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>1</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Openbaar bestuur en democratie</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>164.462</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>164.462</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>14.765</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>2</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Nationale veiligheid</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>487.621</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>487.621</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>17.214</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>6</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Overheidsdienstverlening en informatiesamenleving</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>535.688</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>536.888</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>10.927</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>7</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Werkgevers- en bedrijfsvoeringsbeleid</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>85.544</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>89.639</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>64</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>14</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Slavernijverleden: fonds en herdenkingscomité</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>26.278</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>26.278</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>15</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Een veilig Groningen met perspectief</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>2.636.339</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>2.853.953</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>1.532.265</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" />
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top" />
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>
+                        <nadruk type="vet">Niet-beleidsartikelen</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" />
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" />
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>11</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Centraal apparaat</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>850.589</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>851.263</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>196.383</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>12</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Algemeen</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>58.185</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>58.435</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="top">
+                      <al>13</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="top">
+                      <al>Nog onverdeeld</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="top" align="right">
+                      <al>15.400</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="top" align="right">
+                      <al>15.400</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col5" valign="top" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+            <table rowsep="0" colsep="0" tabstyle="kio2" frame="topbot" pgwide="2" pdf-table-positioning="volledig" tablebreak="yes">
+              <title>Vastgestelde begrotingsstaat inzake de agentschappen voor het jaar 2025 (bedragen x € 1.000)</title>
+              <tgroup tgroupstyle="kio2" cols="4">
+                <colspec colnum="1" colname="col1" colwidth="61*" />
+                <colspec colnum="2" colname="col2" colwidth="13*" />
+                <colspec colnum="3" colname="col3" colwidth="13*" />
+                <colspec colnum="4" colname="col4" colwidth="13*" />
+                <thead>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Naam baten-lastenagentschap</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>Baten</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>Lasten</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>Saldo</al>
+                    </entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksdienst voor Identitetisgegevens (RvIG)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>236.033</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>214.765</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>21.268</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Logius</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>380.145</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>380.145</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Organisatie &amp; Personeel Rijk (O&amp;P Rijk)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>362.385</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>362.385</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (RODI)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>115.015</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>115.015</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>FMHaaglanden (FMH)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>206.486</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>206.486</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Shared Service Centrum ICT (SSC-ICT)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>432.478</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>437.978</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>‒ 5.500</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksorganisatie Beveiliging en Logistiek (RBL)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>161.690</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>161.690</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>
+                        <nadruk type="vet">Totaal</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>
+                        <nadruk type="vet">1.894.232</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>
+                        <nadruk type="vet">1.878.464</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col4" valign="bottom" align="right">
+                      <al>
+                        <nadruk type="vet">15.768</nadruk>
+                      </al>
+                    </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+            <table rowsep="0" colsep="0" tabstyle="kio2" frame="topbot" pgwide="2" pdf-table-positioning="volledig" tablebreak="no">
+              <title>Vastgestelde begrotingsstaat inzake de agentschappen voor het jaar 2025 (bedragen x € 1.000)</title>
+              <tgroup tgroupstyle="kio2" cols="3">
+                <colspec colnum="1" colname="col1" colwidth="74*" />
+                <colspec colnum="2" colname="col2" colwidth="13*" />
+                <colspec colnum="3" colname="col3" colwidth="13*" />
+                <thead>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Naam baten-lastenagentschap</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom">
+                      <al>Totaal kapitaaluitgaven</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom">
+                      <al>Totaal kapitaalontvangsten</al>
+                    </entry>
+                  </row>
+                </thead>
+                <tbody>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksdienst voor Identitetisgegevens (RvIG)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>‒ 3.100</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Logius</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Organisatie &amp; Personeel Rijk (O&amp;P Rijk)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>‒ 2.053</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksorganisatie voor Ontwikkeling, Digitalisering en Innovatie (RODI)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>FMHaaglanden (FMH)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>‒ 15.389</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>10.200</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Shared Service Centrum ICT (SSC-ICT)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>‒ 145.725</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>112.102</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>Rijksorganisatie Beveiliging en Logistiek (RBL)</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>‒ 150</al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>0</al>
+                    </entry>
+                  </row>
+                  <row rowsep="1">
+                    <entry colsep="0" rotate="0" thscope="row" colname="col1" valign="bottom">
+                      <al>
+                        <nadruk type="vet">Totaal</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" thscope="row" colname="col2" valign="bottom" align="right">
+                      <al>
+                        <nadruk type="vet">‒ 166.417</nadruk>
+                      </al>
+                    </entry>
+                    <entry colsep="0" rotate="0" colname="col3" valign="bottom" align="right">
+                      <al>
+                        <nadruk type="vet">122.302</nadruk>
+                      </al>
+                    </entry>
+                  </row>
+                </tbody>
+              </tgroup>
+            </table>
+          </tekst>
+        </vrije-tekst>
+      </algemeen>
+    </stuk>
+  </kamerstuk>
+</officiele-publicatie>
