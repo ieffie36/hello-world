@@ -42,7 +42,7 @@ class NepHttp:
 
 @pytest.mark.parametrize(
     "tekst, verwacht",
-    [("4.560.128", 4560128), ("‒ 3.100", -3100), ("-1.234", -1234), ("0", 0), ("12,5", 12.5), ("", None), ("Totaal", None)],
+    [("4.560.128", 4560128), ("13 478 481", 13478481), ("‒ 288 770", -288770), ("1 2", None), ("‒ 3.100", -3100), ("-1.234", -1234), ("0", 0), ("12,5", 12.5), ("", None), ("Totaal", None)],
 )
 def test_parse_bedrag(tekst, verwacht):
     assert parse_bedrag(tekst) == verwacht
@@ -170,6 +170,8 @@ def test_officielebekendmakingen_scraper():
     # Zoekvraag bevat het juiste vergaderjaar
     assert 'w.vergaderjaar=="2024-2025"' in scraper.zoekvraag(2025, "OWB")
     assert 'w.vergaderjaar=="2025-2026"' in scraper.zoekvraag(2025, "JV")
+    assert 'w.vergaderjaar=="2025-2026"' in scraper.zoekvraag(2025, "SBS")
+    assert 'w.dossiertitel="Miljoenennota"' in scraper.zoekvraag(2025, "SBS")
 
 
 # ------------------------------------------------------------------------ app
@@ -219,3 +221,4 @@ def test_app_validatie(client):
     assert client.get("/begroting?jaar=abc").status_code == 400
     assert client.get("/api/begroting?jaar=1990").get_json()["fout"].startswith("Jaar moet")
     assert client.get("/api/begroting?jaar=2025&fase=XYZ").status_code == 400
+    assert "vanaf 2023" in client.get("/api/begroting?jaar=2022&fase=SBS").get_json()["fout"]

@@ -54,6 +54,8 @@ def lees_parameters() -> tuple[int, str, list[str], bool]:
     fase = request.args.get("fase", "OWB").upper()
     if fase not in FASEN:
         abort(400, f"Onbekende fase; kies uit {', '.join(FASEN)}")
+    if jaar < FASEN[fase].get("vanaf", EERSTE_JAAR):
+        abort(400, f"{FASEN[fase]['naam']} bestaat pas vanaf {FASEN[fase]['vanaf']}")
     bron = request.args.get("bron", "beide")
     if bron == "beide":
         bronnen = list(BRONNEN)

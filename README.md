@@ -24,6 +24,7 @@ Per hoofdstuk worden alle tabellen uit het wetsvoorstel opgehaald:
 | --- | --- |
 | `OWB` | Ontwerpbegroting (begrotingswet, Prinsjesdag) |
 | `1SUPP` | Eerste suppletoire begroting (Voorjaarsnota) |
+| `SBS` | Septembersuppletoire begroting (Miljoenennota, Prinsjesdag; vanaf 2023) |
 | `2SUPP` | Tweede suppletoire begroting (Najaarsnota) |
 | `JV` | Slotwet (bij het jaarverslag) |
 

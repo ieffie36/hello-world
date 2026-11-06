@@ -19,7 +19,7 @@ from xml.etree import ElementTree as ET
 import requests
 from bs4 import BeautifulSoup
 
-from .tables import Tabel, normaliseer_tekst, parse_html, parse_xml
+from .tables import SOORT_OVERIG, Tabel, normaliseer_tekst, parse_html, parse_xml
 
 log = logging.getLogger(__name__)
 
@@ -41,6 +41,11 @@ FASEN: dict[str, dict] = {
     "1SUPP": {
         "naam": "Eerste suppletoire begroting (Voorjaarsnota)",
         "ob": {"titel": ["Wijziging van de begrotingsstaten", "Voorjaarsnota"], "vergaderjaar_start": -1},
+    },
+    "SBS": {
+        "naam": "Septembersuppletoire begroting (Miljoenennota)",
+        "vanaf": 2023,
+        "ob": {"titel": ["Wijziging van de begrotingsstaten", "Miljoenennota"], "vergaderjaar_start": 0},
     },
     "2SUPP": {
         "naam": "Tweede suppletoire begroting (Najaarsnota)",
@@ -135,6 +140,15 @@ def naam_uit_titel(titel: str) -> str:
     return ""
 
 
+def alleen_begrotingsstaten(tabellen: list[Tabel]) -> list[Tabel]:
+    """Laat tabellen weg die geen begrotingsstaat zijn.
+
+    Een enkele pagina bevat per abuis tabellen uit de memorie van toelichting
+    (bijv. 'Budgettaire gevolgen van beleid'); die horen niet bij de wet.
+    """
+    return [t for t in tabellen if t.soort != SOORT_OVERIG]
+
+
 # ----------------------------------------------------------------------- HTTP
 
 
@@ -200,14 +214,14 @@ class RijksfinancienScraper:
             if r.status_code != 200:
                 h.fout = f"Pagina niet beschikbaar op rijksfinancien.nl (HTTP {r.status_code})"
                 return h
-            h.tabellen = parse_html(r.text)
+            h.tabellen = alleen_begrotingsstaten(parse_html(r.text))
             soup = BeautifulSoup(r.text, "html.parser")
             kop = soup.find("h1")
             h.naam = naam_uit_titel(h.tabellen[0].titel) if h.tabellen else ""
             if not h.naam and kop:
                 h.naam = normaliseer_tekst(kop.get_text(" "))
             if not h.tabellen:
-                h.fout = "Geen tabellen gevonden in het voorstel van wet"
+                h.fout = "Geen begrotingsstaat gevonden in het voorstel van wet"
         except ScraperFout as e:
             h.fout = str(e)
         return h
@@ -309,10 +323,10 @@ class OfficieleBekendmakingenScraper:
             # Vergaderjaren kunnen dossiers van een ander begrotingsjaar bevatten.
             if dossiertitel and str(jaar) not in dossiertitel:
                 return None
-            h.tabellen = parse_xml(r.content)
+            h.tabellen = alleen_begrotingsstaten(parse_xml(r.content))
             h.naam = naam_uit_titel(dossiertitel) or (naam_uit_titel(h.tabellen[0].titel) if h.tabellen else "")
             if not h.tabellen:
-                h.fout = "Geen tabellen gevonden in het voorstel van wet"
+                h.fout = "Geen begrotingsstaat gevonden in het voorstel van wet"
         except (ScraperFout, ET.ParseError) as e:
             h.fout = str(e)
         return h
