@@ -67,7 +67,8 @@ def vergelijk(resultaten: list[Resultaat]) -> list[dict]:
             if len(bruikbaar) < len(resultaten):
                 status = "onvolledig"
             else:
-                totalen = [[t.totaal() for t in h.tabellen] for h in bruikbaar]
+                # Vergelijk op bedragen; kolomkoppen verschillen soms in schrijfwijze.
+                totalen = [[list(t.totaal().values()) for t in h.tabellen] for h in bruikbaar]
                 status = "gelijk" if all(t == totalen[0] for t in totalen) else "verschil"
         rijen.append({"code": code, "naam": naam, "per_bron": per_bron, "status": status})
     return rijen

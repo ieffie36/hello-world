@@ -29,13 +29,14 @@ _LABEL_KOP_RE = re.compile(
 )
 _ONDERDEEL_RE = re.compile(r"\(([IVX]+[A-C]?|H?[IVX]+|[A-M])\)")
 _MIN = "-−–‒—"
-_GETAL_RE = re.compile(rf"^[{_MIN}]?\s*(\d{{1,3}}(\.\d{{3}})*|\d+)(,\d+)?$")
+# Duizendtallen gescheiden door punten ("1.234.567") of spaties ("1 234 567").
+_GETAL_RE = re.compile(rf"^[{_MIN}]?\s*(\d{{1,3}}(\.\d{{3}})+|\d{{1,3}}( \d{{3}})+|\d+)(,\d+)?$")
 
 
 def normaliseer_tekst(tekst: str | None) -> str:
     if not tekst:
         return ""
-    return re.sub(r"\s+", " ", tekst.replace("\xa0", " ")).strip()
+    return re.sub(r"[\s\u202f\u2009]+", " ", tekst.replace("\xa0", " ")).strip()
 
 
 def parse_bedrag(tekst: str | None) -> float | int | None:
@@ -44,7 +45,7 @@ def parse_bedrag(tekst: str | None) -> float | int | None:
     if not t or not _GETAL_RE.match(t):
         return None
     negatief = t[0] in _MIN
-    t = t.lstrip(_MIN + " ").replace(".", "").replace(",", ".")
+    t = t.lstrip(_MIN + " ").replace(".", "").replace(" ", "").replace(",", ".")
     waarde: float | int = float(t) if "." in t else int(t)
     return -waarde if negatief else waarde
 
@@ -92,7 +93,11 @@ class Tabel:
         while self.rijen:
             eerste = self.rijen[0].cellen
             gevuld = [c for c in eerste if c]
-            uniek = len(set(self.kolommen)) == len(self.kolommen) and self.kolommen
+            uniek = (
+                self.kolommen
+                and len(set(self.kolommen)) == len(self.kolommen)
+                and not any(k.startswith("kolom ") for k in self.kolommen)
+            )
             if uniek or len(gevuld) < 2 or any(parse_bedrag(c) is not None for c in eerste):
                 return
             kop_rijen = [k.split(" – ") for k in self.kolommen] if self.kolommen else []
